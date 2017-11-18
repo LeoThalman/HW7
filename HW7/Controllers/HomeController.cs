@@ -8,6 +8,7 @@ namespace HW7.Controllers
 {
     public class HomeController : Controller
     {
+        string APIKey = System.Web.Configuration.WebConfigurationManager.AppSettings["GiphyAPIKey"];
         // GET: Home
         public ActionResult Index()
         {
