@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace HW7.Controllers
 {
@@ -32,21 +33,22 @@ namespace HW7.Controllers
 
             JObject gifs = JObject.Parse(gifData);
             IList<JToken> data = gifs["data"].Children().Values("images").Values("fixed_height").ToList();
-            IList<ImageData> imageData = new List<ImageData>();
+            IList<ImageData> imagesData = new List<ImageData>();
             foreach(JToken gif in data)
             {
                 ImageData image = gif.ToObject<ImageData>();
-                imageData.Add(image);
+                imagesData.Add(image);
 
             }
             Debug.WriteLine("Test Test Test --------");
-            foreach (ImageData i in imageData)
+            foreach (ImageData i in imagesData)
             {
                 Debug.WriteLine(1);
                 Debug.WriteLine(i.url);
 
             }
-            return Json(gifData, JsonRequestBehavior.AllowGet);
+            string gifReturn = JsonConvert.SerializeObject(imagesData, Formatting.Indented);
+            return Json(gifReturn, JsonRequestBehavior.AllowGet);
         }
 
         public void TestRoute(string sterms)
