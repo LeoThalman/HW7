@@ -15,7 +15,14 @@
     });
 
     function loadImages(data) {
-        console.log(data);
+        $('.gif-wrapper').empty();
+        var temp = JSON.parse(data);
+        console.log(temp);
+        for (var i = 0; i < temp.length; i+=1)
+        {
+            $('.gif-wrapper').append('<img src="' + temp[i].url + '">');
+        }
+
         $('#message').text('Search Worked');
     }
 

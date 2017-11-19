@@ -20,14 +20,12 @@ namespace HW7.Controllers
         // GET: Search
         public JsonResult GetData(string q)
         {
-            Debug.WriteLine("sterms: " + q);
-            string qurl = "http://api.giphy.com/v1/gifs/search?q=" + q + "&api_key=" + APIKey + "&limit=2";
+            string qurl = "http://api.giphy.com/v1/gifs/search?q=" + q + "&api_key=" + APIKey + "&limit=10";
             WebRequest request = WebRequest.Create(qurl);
             HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
             Stream dataStream = resp.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
             string gifData = reader.ReadToEnd();
-            Debug.WriteLine(gifData);
             reader.Close();
             resp.Close();
 
@@ -38,13 +36,6 @@ namespace HW7.Controllers
             {
                 ImageData image = gif.ToObject<ImageData>();
                 imagesData.Add(image);
-
-            }
-            Debug.WriteLine("Test Test Test --------");
-            foreach (ImageData i in imagesData)
-            {
-                Debug.WriteLine(1);
-                Debug.WriteLine(i.url);
 
             }
             string gifReturn = JsonConvert.SerializeObject(imagesData, Formatting.Indented);

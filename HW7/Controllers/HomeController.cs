@@ -16,7 +16,6 @@ namespace HW7.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Search Giphy";
-            Debug.WriteLine("Hello");
             return View();
         }
     }
