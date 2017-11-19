@@ -13,6 +13,13 @@ namespace HW7
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(
+            name: "Search",
+            url: "Search/{id}",
+            defaults: new { controller = "Search", action = "GetData", id = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
