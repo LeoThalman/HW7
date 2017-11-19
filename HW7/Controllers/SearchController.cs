@@ -28,9 +28,10 @@ namespace HW7.Controllers
             string gifData = reader.ReadToEnd();
             reader.Close();
             resp.Close();
+            dataStream.Close();
 
             JObject gifs = JObject.Parse(gifData);
-            IList<JToken> data = gifs["data"].Children().Values("images").Values("fixed_height").ToList();
+            IList<JToken> data = gifs["data"].Children().Values("images").Values("fixed_width").ToList();
             IList<ImageData> imagesData = new List<ImageData>();
             foreach(JToken gif in data)
             {
@@ -40,11 +41,6 @@ namespace HW7.Controllers
             }
             string gifReturn = JsonConvert.SerializeObject(imagesData, Formatting.Indented);
             return Json(gifReturn, JsonRequestBehavior.AllowGet);
-        }
-
-        public void TestRoute(string sterms)
-        {
-            Debug.WriteLine("Route works");
         }
     }
 }

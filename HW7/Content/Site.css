@@ -16,3 +16,6 @@ textarea {
     max-width: 280px;
 }
 
+.gif-wrapper img{
+    margin: 15px;
+}
