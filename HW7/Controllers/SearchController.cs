@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HW7.Models;
+using HW7.DAL;
 using System.Web.Mvc;
 using System.Net;
 using System.Diagnostics;
@@ -13,15 +14,18 @@ using Newtonsoft.Json;
 
 namespace HW7.Controllers
 {
+
+    
+
     public class SearchController : Controller
     {
-        string APIKey = System.Web.Configuration.WebConfigurationManager.AppSettings["GiphyAPIKey"];
+        private RequestDBContext db = new RequestDBContext();
+        private string APIKey = System.Web.Configuration.WebConfigurationManager.AppSettings["GiphyAPIKey"];
 
         // GET: Search
         public JsonResult GetData(string q, string lim, string gifType)
         {
-            Debug.WriteLine("Hello");
-            Debug.WriteLine(gifType);
+            LogRequest(q);
             string qurl = "http://api.giphy.com/v1/gifs/search?q=" + q + "&api_key=" + APIKey + "&limit=" + lim;
             WebRequest request = WebRequest.Create(qurl);
             HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
@@ -43,6 +47,19 @@ namespace HW7.Controllers
             }
             string gifReturn = JsonConvert.SerializeObject(imagesData, Formatting.Indented);
             return Json(gifReturn, JsonRequestBehavior.AllowGet);
+        }
+
+        private void LogRequest(string q)
+        {
+            Request tempLog = new Request
+            {
+                SearchTerms = q,
+                RequestedOn = DateTime.Now,
+                UserBrowser = Request.UserAgent,
+                UserAddress = Request.UserHostAddress
+            };
+            db.Reqeusts.Add(tempLog);
+            db.SaveChanges();
         }
     }
 }

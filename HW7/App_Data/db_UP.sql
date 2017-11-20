@@ -1,0 +1,11 @@
+CREATE TABLE dbo.Requests
+(
+	ID					INT IDENTITY (1,1) NOT NULL,
+	SearchTerms			NVARCHAR NOT NULL,
+	RequestedOn 		DateTime NOT NULL,
+	UserBrowser			NVARCHAR NOT NULL,
+	UserAddress			NVARCHAR NOT NULL,
+	CONSTRAINT [PK_dbo.Requests] PRIMARY KEY CLUSTERED (ID ASC)
+);
+
+GO
