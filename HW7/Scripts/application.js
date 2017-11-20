@@ -3,11 +3,12 @@
     $('#search').click(function () {
         var stext = $('#search-text').val().trim();
         var lim = '&lim=' + $('input[name="lim"]:checked').val();
+        var gifType = '&gifType=' + $('input[name="gifType"]:checked').val();
         stext = stext.replace(/[^a-zA-Z0-9]/g, ' ');
         stext = stext.trim();
         stext = stext.replace(/\s+/g, '+');
         console.log(stext);
-        var query = "/Search/?q=" + stext + lim;
+        var query = "/Search/?q=" + stext + lim + gifType;
 
         $.ajax({
             type: "GET",

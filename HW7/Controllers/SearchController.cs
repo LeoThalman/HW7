@@ -18,8 +18,10 @@ namespace HW7.Controllers
         string APIKey = System.Web.Configuration.WebConfigurationManager.AppSettings["GiphyAPIKey"];
 
         // GET: Search
-        public JsonResult GetData(string q, string lim)
+        public JsonResult GetData(string q, string lim, string gifType)
         {
+            Debug.WriteLine("Hello");
+            Debug.WriteLine(gifType);
             string qurl = "http://api.giphy.com/v1/gifs/search?q=" + q + "&api_key=" + APIKey + "&limit=" + lim;
             WebRequest request = WebRequest.Create(qurl);
             HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
@@ -31,7 +33,7 @@ namespace HW7.Controllers
             dataStream.Close();
 
             JObject gifs = JObject.Parse(gifData);
-            IList<JToken> data = gifs["data"].Children().Values("images").Values("fixed_width").ToList();
+            IList<JToken> data = gifs["data"].Children().Values("images").Values(gifType).ToList();
             IList<ImageData> imagesData = new List<ImageData>();
             foreach(JToken gif in data)
             {
