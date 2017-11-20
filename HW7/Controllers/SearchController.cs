@@ -18,9 +18,9 @@ namespace HW7.Controllers
         string APIKey = System.Web.Configuration.WebConfigurationManager.AppSettings["GiphyAPIKey"];
 
         // GET: Search
-        public JsonResult GetData(string q)
+        public JsonResult GetData(string q, string lim)
         {
-            string qurl = "http://api.giphy.com/v1/gifs/search?q=" + q + "&api_key=" + APIKey + "&limit=10";
+            string qurl = "http://api.giphy.com/v1/gifs/search?q=" + q + "&api_key=" + APIKey + "&limit=" + lim;
             WebRequest request = WebRequest.Create(qurl);
             HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
             Stream dataStream = resp.GetResponseStream();

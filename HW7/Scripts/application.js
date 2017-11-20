@@ -2,11 +2,12 @@
 
     $('#search').click(function () {
         var stext = $('#search-text').val().trim();
-        stext = stext.relpace(/[^a-zA-Z0-9]/g, ' ');
+        var lim = '&lim=' + $('input[name="lim"]:checked').val();
+        stext = stext.replace(/[^a-zA-Z0-9]/g, ' ');
         stext = stext.trim();
         stext = stext.replace(/\s+/g, '+');
         console.log(stext);
-        var query = "/Search/?q=" + stext;
+        var query = "/Search/?q=" + stext + lim;
 
         $.ajax({
             type: "GET",
@@ -24,4 +25,8 @@
             $('.gif-wrapper').append('<img src="' + temp[i].url + '">');
         }
     }
+    function failed() {
+        $('.gif-wrapper').append('<p>Error Loading images, try again.</p>');
+    }
+
 });
