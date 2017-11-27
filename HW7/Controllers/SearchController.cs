@@ -13,16 +13,25 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
 namespace HW7.Controllers
-{
-
-    
+{    
 
     public class SearchController : Controller
     {
+        //Database to log requests
         private RequestDBContext db = new RequestDBContext();
+
+        //API key for giphy
         private string APIKey = System.Web.Configuration.WebConfigurationManager.AppSettings["GiphyAPIKey"];
 
-        // GET: Search
+        /// <summary>
+        /// Takes a string of search terms, as well as a limit of images and a type of image
+        /// and then queries the Giphy API to get the image data and then pulls the data out of
+        /// the giphy data and puts it in a new json object and passes it to the view
+        /// </summary>
+        /// <param name="q">terms to search giphy for</param>
+        /// <param name="lim">how many gifs to pull up</param>
+        /// <param name="gifType">what kind of image to return</param>
+        /// <returns>The requested gifs in a json object</returns>
         public JsonResult GetData(string q, string lim, string gifType)
         {
             LogRequest(q);
@@ -49,6 +58,11 @@ namespace HW7.Controllers
             return Json(gifReturn, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Logs an entry in the request database detailing what the user searched for
+        /// as well as their browser and ip address
+        /// </summary>
+        /// <param name="q">terms the user searched for</param>
         private void LogRequest(string q)
         {
             Request tempLog = new Request
