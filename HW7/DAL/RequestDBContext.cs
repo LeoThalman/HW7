@@ -12,6 +12,6 @@ namespace HW7.DAL
         public RequestDBContext() : base("name=RequestDBContext")
         { }
 
-        public virtual DbSet<Request> Reqeusts { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
     }
 }

@@ -72,7 +72,7 @@ namespace HW7.Controllers
                 UserBrowser = Request.UserAgent,
                 UserAddress = Request.UserHostAddress
             };
-            db.Reqeusts.Add(tempLog);
+            db.Requests.Add(tempLog);
             db.SaveChanges();
         }
     }
